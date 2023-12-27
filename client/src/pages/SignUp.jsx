@@ -1,21 +1,41 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { useState,useEffect } from "react";
 import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [formatData, setFormData] = useState({});
-  const [error, setError] = useState(false);
+  const { currentUser } = useSelector(state => state.user)
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if(currentUser){
+      navigate('/')
+    }
+  }, []);
+
+
   const handleChange = (e) => {
     setFormData({ ...formatData, [e.target.id]: e.target.value });
   };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    if (!formatData.username || !formatData.email || !formatData.password) {
+      setError("Fill all the fields");
+      return;
+    }
+
+
     try {
       setLoading(true);
-      setError(false);
+      setError("");
 
       const res = await fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
@@ -25,24 +45,35 @@ function SignUp() {
         credentials: "include",
         body: JSON.stringify(formatData),
       });
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+
       const data = await res.json();
+      
+      if (data.status === 409) { // Assuming 409 status code indicates user already exists
+        setError("User already exists"); // Set the specific error message for existing user
+        return;
+      }
+
+
+      if (!res.ok) {
+        setError("User creation failed");
+        return;
+      }
+      
+
       if (data.success === false) {
-        setError(true);
+        setError("wrong credentials");
         return;
       }
       navigate("/sign-in");
     } catch (error) {
       setLoading(false);
-      setError(true);
-      console.error("Error during form submission:", error);
+      setError("Error occurred during sign up");
+      console.error("Error occurred during sign up:", error);
     }
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 mt-10 max-w-lg mx-auto border border-gray-300 rounded-lg">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -80,7 +111,7 @@ function SignUp() {
           <span className="text-blue-500">Sign in</span>
         </Link>
       </div>
-      <p className="text-red-700">{error && "Something went wrong!"}</p>
+      <p className="text-red-700">{error}</p>
     </div>
   );
 }
