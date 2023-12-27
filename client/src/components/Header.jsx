@@ -5,14 +5,16 @@ function Header() {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
-    <div className="bg-slate-200">
+    <div className="bg-green-700">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
-          <h1 className="font-bold">Auth app</h1>
+
+            <h1 className="font-bold">Welcome <span style={{color:'white',fontFamily:"-moz-initial"}}>{currentUser?.username}</span></h1>
+
         </Link>
         <ul className="flex gap-4">
           <Link to="/">
-            <li>Home</li>
+            <li style={{color:'white'}}>Home</li>
           </Link>
           {currentUser ? (
             <>
@@ -27,7 +29,7 @@ function Header() {
               </Link>
               {currentUser.role === "admin" && (
                 <Link to="/admin-dash">
-                  <li>Dashboard</li>
+                  <li style={{color:'white'}}>Dashboard</li>
                 </Link>
               )}
             </>

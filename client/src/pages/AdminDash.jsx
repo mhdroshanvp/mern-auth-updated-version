@@ -79,7 +79,7 @@ function AdminDash() {
 
   return (
     <div className="p-4 mt-4">
-      <h2 className="text-2xl font-bold mb-4 text-center">Admin Dashboard</h2>
+      <h2 className="text-2xl mb-4 text-center font-extrabold">Admin Dashboard</h2>
 
       <div className="mb-4 flex items-center">
         <input
@@ -90,7 +90,7 @@ function AdminDash() {
           className="p-2 border border-gray-300 w-full"
         />
         <button
-          className="ml-2 p-2 bg-stone-900 text-white rounded"
+          className="ml-2 p-2 bg-green-700 text-white rounded"
           onClick={() => setSearchTerm("")}
         >
           Clear

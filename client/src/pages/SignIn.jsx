@@ -57,7 +57,12 @@ function SignIn() {
 
       dispatch(signInSuccess(data));
 
-      navigate("/");
+      if (data.role == 'admin') {
+        navigate("/admin-home")
+      } else {
+        navigate("/");
+      }
+
     } catch (error) {
       setErrors('Something went wrong , try again')
       dispatch(signInFailure(error));
@@ -85,7 +90,7 @@ function SignIn() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
@@ -94,10 +99,10 @@ function SignIn() {
       <div className="flex gap-2 mt-5">
         <p>Dont Have an account ?</p>
         <Link to="/sign-up">
-          <span className="text-blue-500">Sign up</span>
+          <span className="text-red-600">Sign up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error && <>{error}</>}</p>
+      <p className="text-red-700 mt-5">{error && <> </>}</p>
     </div>
   );
 }

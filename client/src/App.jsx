@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminDash from "./pages/AdminDash";
+import AdminHome from "./pages/AdminHome";
 import PrivateAdminRoute from "./components/PrivateAdminRoute";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route element={<PrivateAdminRoute />}>
             <Route path="/admin-dash" element={<AdminDash />} />
+            <Route path="/admin-home" element={<AdminHome />} />
           </Route>
         </Route>
       </Routes>

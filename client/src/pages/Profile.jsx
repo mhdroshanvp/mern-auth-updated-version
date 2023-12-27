@@ -119,7 +119,7 @@ function Profile() {
   };
   return (
     <div className="p-3 mt-5 max-w-lg mx-auto border border-gray-300 rounded-lg ">
-      <h1 className="text-3xl font-semibold text-center my-7 ">Profile</h1>
+      <h1 className="text-3xl font-extrabold text-center my-7 ">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="file"
@@ -170,22 +170,22 @@ function Profile() {
         <input
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder="••••••••"
           className="bg-slate-100 rounded-lg p-3"
           onChange={handleChange}
         />
-        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
+        <button className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
           {loading ? "Loading..." : "Update"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
         <span
           onClick={handleDeleteAccount}
-          className="text-red-700 cursor-pointer"
+          className="text-red-700 cursor-pointer ml-3 mt-2"
         >
           Delete Account
         </span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer mr-3 mt-2">
           Sign Out
         </span>
       </div>
